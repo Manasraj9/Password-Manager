@@ -1,10 +1,11 @@
 import React from 'react'
 import { useRef, useState, useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 
 const Manager = () => {
     const ref = useRef()
-    const[form, setform] = useState({ site: "", username: "", password: "" })
-    const[passwordArray, setPasswordArray] = useState([])
+    const [form, setform] = useState({ site: "", username: "", password: "" })
+    const [passwordArray, setPasswordArray] = useState([])
 
     useEffect(() => {
         let passwords = localStorage.getItem("passwords")
@@ -13,6 +14,20 @@ const Manager = () => {
             setPasswordArray(JSON.parse(passwords))
         }
     }, [])
+
+    const copyText = (text) => {
+        toast('Copied to clipboard!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+        navigator.clipboard.writeText(text)
+    }
 
     const showPassword = () => {
         alert("show the password")
@@ -36,6 +51,21 @@ const Manager = () => {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition="Bounce"
+            />
+            {/* Same as */}
+            <ToastContainer />
             <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
             <div className="mycontainer">
                 <h1 className='text-4xl font-bold text-center'>
